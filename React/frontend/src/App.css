@@ -1,0 +1,30 @@
+/* App.css */
+
+.App {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.order-gif {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+  animation: scale-animation 1s infinite;
+}
+
+@keyframes scale-animation {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}

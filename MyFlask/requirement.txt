@@ -1,0 +1,8 @@
+Flask
+pyngrok
+flask_cors
+firebase_admin
+sqlalchemy
+flask_sqlalchemy
+sqlalchemy.orm
+sqlalchemy.ext.declarative

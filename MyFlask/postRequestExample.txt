@@ -1,0 +1,106 @@
+/* ============== ProcessMyOrder ============== */
+{
+    "name": "ProcessMyOrder",
+    "description": "Process My Order",
+    "request": {
+      "url": "https://api.example.com/api/processMyOrder/processMyOrder",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "None"
+      },
+      "body": {
+        "myOrderId": {
+          "message": {
+            "toolCalls": [
+              {
+                "id": "toolCall1",
+                "function": {
+                  "name": "processOrder",
+                  "arguments": {
+                    "order": [
+                      {
+                        "item_id":5,
+                        "item": "Margherita",
+                        "quantity": 2
+                      },
+                      {
+                        "item_id":4,
+                        "item": "Banana Honey",
+                        "quantity": 1
+                      },
+                      {
+                        "item_id":2,
+                        "item": "Garlic Bread",
+                        "quantity": 3
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "status": "success",
+        "message": "Order processed successfully"
+      }
+    }
+  }
+  
+
+
+  /* ============== ProcessMyTip ============== */
+
+
+  {
+    "name": "ProcessMyTip",
+    "description": "Process My Tip",
+    "request": {
+      "url": "https://api.example.com/api/processMyTip/processMyTip",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "None"
+      },
+      "body": {
+        "myOrderId": {
+          "message": {
+            "toolCalls": [
+              {
+                "id": "toolCall1",
+                "function": {
+                  "name": "processOrder",
+                  "arguments": {
+                    "tip": {
+                      "tip": 5.00,
+                      "orderTotal": 50.00,
+                      "roundOffTotal": true
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "status": "success",
+        "message": "Tip processed successfully"
+      }
+    }
+  }
+  
