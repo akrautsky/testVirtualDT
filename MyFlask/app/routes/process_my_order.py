@@ -7,7 +7,7 @@ from app.events.current_order_event import emit_current_order_event
 
 
 # accessing the menu
-with open('app/menu.json') as f:
+with open('MyFlask/app/menu.json') as f:
     menu = json.load(f)
 
 
