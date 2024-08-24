@@ -1,0 +1,85 @@
+/* CurrentOrder.css */
+
+.order-section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Andale Mono', monospace;
+  }
+  
+  .order-header {
+    display: flex;
+    align-items: center;
+    font-family: 'Andale Mono', monospace;
+    padding: 10px;
+    z-index: 10;
+    flex-shrink: 0; /* Prevents the header from shrinking */
+  }
+  
+  .my-order-gif {
+    width: 40px; /* Adjust the size as needed */
+    height: auto;
+    margin-right: 10px; /* Adjust the spacing as needed */
+  }
+  
+  .order-items-container {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
+  .order-items {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .order-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* Divider line between items */
+    font-size: 16px;
+  }
+  
+  .order-summary {
+    padding: 10px;
+    z-index: 10;
+    flex-shrink: 0; /* Prevents the summary from shrinking */
+    height: 25%; /* Take only 25% of the height */
+    background: rgba(255, 255, 255, 0); /* Transparent background */
+    border-top: 1px solid rgba(0, 0, 0, 0.3); /* Darker top border */
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5); /* Darker and more prominent shadow */
+  }
+  
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .summary-table td {
+    padding: 5px;
+    border-bottom: 1px solid #ddd; /* Bottom border for table cells */
+    font-size: 14px; /* Adjusted font size for better readability */
+  }
+  
+  .final-amount {
+    margin-top: 10px;
+  }
+  
+  .speaker-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    z-index: 10;
+    flex-shrink: 0; /* Prevents the speaker section from shrinking */
+    border-top: 1px solid #ddd; /* Top border for separation */
+    background: rgba(204, 224, 219, 0.9); /* Use modal background */
+    height: 5%; /* Take only 5% of the height */
+    width: 100%; /* Stretch to 100% width */
+  }
+  
+  .speaker-gif {
+    width: 100%; /* Stretch to 100% width */
+    height: 30px; /* Set height to 30px */
+    background-color: rgba(204, 224, 219, 0.4); /* Set background color */
+  }
+  

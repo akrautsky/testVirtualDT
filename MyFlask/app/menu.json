@@ -1,0 +1,8 @@
+[
+    {"id": 1, "section": "Appetizers", "name": "Spring Rolls", "price": 5.00},
+    {"id": 2, "section": "Appetizers", "name": "Garlic Bread", "price": 4.00},
+    {"id": 3, "section": "Smoothies", "name": "Green Detox", "price": 7.00},
+    {"id": 4, "section": "Smoothies", "name": "Banana Honey", "price": 6.00},
+    {"id": 5, "section": "Pizzas", "name": "Margherita", "price": 12.00},
+    {"id": 6, "section": "Pizzas", "name": "Pepperoni", "price": 14.00}
+]
