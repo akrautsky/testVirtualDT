@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 
 function Menu() {
   const { myOrder, setMyOrder } = useContext(MyOrderContext);
-  //const [socket, setSocket] = useState(null); 
+  
 
   useEffect(() => {
     console.log('myOrder in Menu updated:', myOrder);
