@@ -1,0 +1,27 @@
+# Node.js
+React/node_modules/
+React/build/
+React/.env
+React/backend
+
+# Python
+MyFlask/myVenv/
+MyFlask/*.pyc
+MyFlask/__pycache__/
+MyFlask/.env
+
+
+
+# IDE specific files
+.vscode/
+.idea/
+
+
+
+# Dependency caches
+.cache/
+.npm/
+.yarn/
+
+# OS generated files
+.DS_Store

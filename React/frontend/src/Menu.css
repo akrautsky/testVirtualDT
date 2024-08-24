@@ -1,0 +1,73 @@
+/* Menu.css */
+
+.menu-section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Andale Mono', monospace;
+  }
+  
+  .menu-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Andale Mono', monospace;
+    padding: 10px;
+    z-index: 10;
+    flex-shrink: 0; /* Prevents the header from shrinking */
+  }
+  
+  .menu-items-container {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
+  .menu-category {
+    margin-bottom: 20px;
+  }
+  
+  .menu-category h3 {
+    margin: 10px 0;
+    font-size: 16px; /* Smaller font size */
+    font-style: italic; /* Italic text */
+  }
+  
+  .menu-items {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .menu-item {
+    width: 50%; /* Two items per line */
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd; /* Divider line between items */
+    margin-bottom: 10px; /* Add spacing between items */
+  }
+  
+  .menu-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    z-index: 10;
+    flex-shrink: 0; /* Prevents the footer from shrinking */
+    border-top: 1px solid #ddd; /* Top border for separation */
+    background: rgba(255, 255, 255, 0); /* Transparent background */
+    height: 5%; /* Take only 5% of the height */
+    width: 100%; /* Stretch to 100% width */
+    position: sticky; /* Ensure it sticks to the bottom */
+    bottom: 0; /* Position it at the bottom */
+  }
+  
+  .microphone-gif {
+    width: 20%; /* Adjust to 20% of the width */
+    height: auto; /* Maintain aspect ratio */
+    background-color: rgba(255, 255, 255, 0); /* Transparent background */
+  }
+  
