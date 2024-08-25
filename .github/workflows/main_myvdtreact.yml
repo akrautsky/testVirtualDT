@@ -24,10 +24,17 @@ jobs:
           npm install
           npm run build --if-present
 
+      - name: Verify Build Directory
+        run: |
+          echo "Listing contents of React/frontend:"
+          ls -la React/frontend
+          echo "Listing contents of React/frontend/build:"
+          ls -la React/frontend/build || echo "Build directory does not exist"
+
       - name: Zip artifact for deployment
         run: |
           cd React/frontend/build  # Navigate to the build directory
-          zip -r release.zip ./*   # Create a ZIP file of the build directory
+          zip -r release.zip ./*
         working-directory: React/frontend/build  # Set the working directory
 
       - name: Upload artifact for deployment job
@@ -35,10 +42,6 @@ jobs:
         with:
           name: node-app
           path: React/frontend/build/release.zip   # Path to the zip file
-      
-      - name: List build directory
-        run: ls -la React/frontend/build
-
 
   deploy:
     runs-on: ubuntu-latest
