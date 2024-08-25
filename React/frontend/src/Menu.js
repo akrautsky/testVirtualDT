@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import './Menu.css';
 import microphoneGif from './microphone.gif'; // Make sure to place the microphone.gif file in the src folder
