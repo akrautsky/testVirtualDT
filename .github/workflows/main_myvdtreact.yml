@@ -23,18 +23,21 @@ jobs:
 
       - name: npm install, build, and test
         run: |
+          cd React/frontend   # Navigate to the frontend directory
           npm install
           npm run build --if-present
           npm run test --if-present
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: |
+          cd React/frontend/build  # Navigate to the build directory
+          zip -r release.zip ./*
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: release.zip
+          path: React/frontend/build/release.zip   # Path to the zip file
 
   deploy:
     runs-on: ubuntu-latest
@@ -43,7 +46,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT
+      id-token: write # This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -52,7 +55,7 @@ jobs:
           name: node-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip
+        run: unzip React/frontend/build/release.zip   # Unzip in the frontend build directory
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -67,5 +70,4 @@ jobs:
         with:
           app-name: 'myvdtreact'
           slot-name: 'Production'
-          package: .
-          
+          package: ./React/frontend/build  # Path to the unzipped files
