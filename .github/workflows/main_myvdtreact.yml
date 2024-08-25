@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  
+
   workflow_dispatch:
 
 jobs:
@@ -14,9 +14,6 @@ jobs:
       deploy_frontend: ${{ steps.set_output.outputs.deploy_frontend }}
       deploy_backend: ${{ steps.set_output.outputs.deploy_backend }}
     steps:
-      - name: Set up GitHub CLI
-        run: gh auth setup-git
-
       - name: Check PR comments for frontend or backend triggers
         id: check_comments
         env:
