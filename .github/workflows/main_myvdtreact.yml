@@ -4,9 +4,7 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+  
   workflow_dispatch:
 
 jobs:
@@ -16,8 +14,13 @@ jobs:
       deploy_frontend: ${{ steps.set_output.outputs.deploy_frontend }}
       deploy_backend: ${{ steps.set_output.outputs.deploy_backend }}
     steps:
+      - name: Set up GitHub CLI
+        run: gh auth setup-git
+
       - name: Check PR comments for frontend or backend triggers
         id: check_comments
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Provide the GitHub token
         run: |
           echo "Checking for 'frontend::' or 'backend::' in PR comments..."
           COMMENTS=$(gh pr view ${{ github.event.pull_request.number }} --json body --jq '.body')
