@@ -22,24 +22,22 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-        working-directory: React/frontend   # Set the working directory for npm commands
+        working-directory: React/frontend   # Ensure correct directory for npm commands
 
       - name: Verify Build Directory
-        run: |
-          echo "Listing contents of React/frontend/build:"
-          ls -la build
-        working-directory: React/frontend  # Check contents of the build directory
+        run: ls -la build
+        working-directory: React/frontend  # List contents of the build directory
 
       - name: Zip artifact for deployment
         run: |
           zip -r release.zip ./*
-        working-directory: React/frontend/build  # Create the ZIP in the build directory
+        working-directory: React/frontend/build  # Create the ZIP file in the build directory
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: React/frontend/build/release.zip   # Path to the ZIP file
+          path: React/frontend/build/release.zip   # Ensure path to the ZIP file
 
   deploy:
     runs-on: ubuntu-latest
@@ -56,9 +54,13 @@ jobs:
         with:
           name: node-app
 
+      - name: Verify ZIP File Before Unzipping
+        run: ls -la
+        working-directory: React/frontend/build  # List the contents to ensure the ZIP exists
+
       - name: Unzip artifact for deployment
         run: unzip release.zip
-        working-directory: React/frontend/build  # Ensure you are in the correct directory
+        working-directory: React/frontend/build  # Unzip in the build directory
       
       - name: Login to Azure
         uses: azure/login@v2
