@@ -12,6 +12,9 @@ on:
 jobs:
   check-pr-comments:
     runs-on: ubuntu-latest
+    outputs:
+      deploy_frontend: ${{ steps.set_output.outputs.deploy_frontend }}
+      deploy_backend: ${{ steps.set_output.outputs.deploy_backend }}
     steps:
       - name: Check PR comments for frontend or backend triggers
         id: check_comments
@@ -21,22 +24,26 @@ jobs:
           echo "PR Comments: $COMMENTS"
           
           if [[ "$COMMENTS" == *"frontend::"* ]]; then
-            echo "::set-output name=deploy_frontend::true"
+            echo "frontend=true" >> $GITHUB_ENV
           else
-            echo "::set-output name=deploy_frontend::false"
+            echo "frontend=false" >> $GITHUB_ENV
           fi
 
           if [[ "$COMMENTS" == *"backend::"* ]]; then
-            echo "::set-output name=deploy_backend::true"
+            echo "backend=true" >> $GITHUB_ENV
           else
-            echo "::set-output name=deploy_backend::false"
+            echo "backend=false" >> $GITHUB_ENV
           fi
+
+      - id: set_output
+        run: |
+          echo "::set-output name=deploy_frontend::$(echo $frontend)"
+          echo "::set-output name=deploy_backend::$(echo $backend)"
 
   build-frontend:
     runs-on: ubuntu-latest
     needs: check-pr-comments
-    if: steps.check_comments.outputs.deploy_frontend == 'true'
-
+    if: needs.check-pr-comments.outputs.deploy_frontend == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -66,7 +73,7 @@ jobs:
   deploy-frontend:
     runs-on: ubuntu-latest
     needs: build-frontend
-    if: steps.check_comments.outputs.deploy_frontend == 'true'
+    if: needs.check-pr-comments.outputs.deploy_frontend == 'true'
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -113,7 +120,7 @@ jobs:
   deploy-backend:
     runs-on: ubuntu-latest
     needs: check-pr-comments
-    if: steps.check_comments.outputs.deploy_backend == 'true'
+    if: needs.check-pr-comments.outputs.deploy_backend == 'true'
 
     steps:
       - name: Checkout code
