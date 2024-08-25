@@ -22,22 +22,18 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-        working-directory: React/frontend   # Ensure correct directory for npm commands
-
-      - name: Verify Build Directory
-        run: ls -la build
-        working-directory: React/frontend  # List contents of the build directory
+        working-directory: React/frontend
 
       - name: Zip artifact for deployment
         run: |
           zip -r release.zip ./*
-        working-directory: React/frontend/build  # Create the ZIP file in the build directory
+        working-directory: React/frontend/build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: React/frontend/build/release.zip   # Ensure path to the ZIP file
+          path: React/frontend/build/release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -46,22 +42,28 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
+      id-token: write
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: node-app
+          path: React/frontend/build  # Specify the directory to download the artifact to
+
+      - name: Create directory for artifact
+        run: mkdir -p React/frontend/build
+
+      - name: Move downloaded artifact to the correct directory
+        run: mv node-app.zip React/frontend/build/release.zip  # Move the artifact to the correct directory
 
       - name: Verify ZIP File Before Unzipping
-        run: ls -la
-        working-directory: React/frontend/build  # List the contents to ensure the ZIP exists
+        run: ls -la React/frontend/build  # Check that the artifact is in the right place
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
         working-directory: React/frontend/build  # Unzip in the build directory
-      
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
