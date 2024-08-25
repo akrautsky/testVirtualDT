@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - main
-
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -14,29 +16,28 @@ jobs:
       deploy_frontend: ${{ steps.set_output.outputs.deploy_frontend }}
       deploy_backend: ${{ steps.set_output.outputs.deploy_backend }}
     steps:
-      - name: Check PR comments for frontend or backend triggers
-        id: check_comments
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Provide the GitHub token
+      - name: Extract PR body content
+        id: extract_content
+        if: github.event_name == 'pull_request'
+        run: echo "PR_BODY=$(echo '${{ github.event.pull_request.body }}')" >> $GITHUB_ENV
+
+      - name: Determine deployment type
+        id: set_output
         run: |
           echo "Checking for 'frontend::' or 'backend::' in PR comments..."
-          COMMENTS=$(gh pr view ${{ github.event.pull_request.number }} --json body --jq '.body')
-          echo "PR Comments: $COMMENTS"
+          PR_BODY="${{ env.PR_BODY }}"
           
-          if [[ "$COMMENTS" == *"frontend::"* ]]; then
+          if [[ "$PR_BODY" == *"frontend::"* ]]; then
             echo "frontend=true" >> $GITHUB_ENV
           else
             echo "frontend=false" >> $GITHUB_ENV
           fi
 
-          if [[ "$COMMENTS" == *"backend::"* ]]; then
+          if [[ "$PR_BODY" == *"backend::"* ]]; then
             echo "backend=true" >> $GITHUB_ENV
           else
             echo "backend=false" >> $GITHUB_ENV
           fi
-
-      - id: set_output
-        run: |
           echo "::set-output name=deploy_frontend::$(echo $frontend)"
           echo "::set-output name=deploy_backend::$(echo $backend)"
 
