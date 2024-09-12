@@ -1,11 +1,11 @@
-name: Build and deploy Node.js and Python apps to Azure Web Appssdfs 
+name: Build and deploy Node.js and Python apps to Azure Web Apps
 
 on:
   pull_request:
     branches:
       - main
     types: 
-      - closed # Ensures the workflow triggers only when a pull request is merged
+      - closed
   workflow_dispatch:
 
 jobs:
@@ -66,13 +66,17 @@ jobs:
           npm run build --if-present
         working-directory: React/frontend
 
+      - name: Verify Build Directory Contents (Check if static files exist)
+        run: ls -la React/frontend/build/static  # Check for static files
+        continue-on-error: true  # Allow the job to continue if folder is missing
+
       - name: Zip artifact for deployment
         run: |
           zip -r release.zip ./*
         working-directory: React/frontend/build
 
-      - name: Verify ZIP File Exists Before Upload
-        run: ls -la React/frontend/build
+      - name: Verify ZIP File After Zipping
+        run: unzip -l React/frontend/build/release.zip  # List contents of the ZIP to check static folder
 
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
@@ -98,13 +102,13 @@ jobs:
           path: ./artifact-dir  # Download the artifact to a known directory
 
       - name: List downloaded artifact files
-        run: ls -la ./artifact-dir
+        run: ls -la ./artifact-dir  # Verify artifact download
 
       - name: Unzip artifact for deployment
         run: unzip ./artifact-dir/release.zip -d ./unzipped
 
-      - name: List files in unzipped directory
-        run: ls -la ./unzipped
+      - name: List files in unzipped directory (Check if static files are unzipped)
+        run: ls -la ./unzipped/static  # Check if static folder exists
 
       - name: Login to Azure
         uses: azure/login@v2
