@@ -130,7 +130,7 @@ payload = {
                     }
                 },
                 "server": {
-                    "url": "https://1def-2603-9000-f801-977f-5d1-8a36-7a44-bf22.ngrok-free.app/api/processMyTip/processMyTip",
+                    "url": "https://d1b1-2603-9000-db00-9f7f-3d2c-43d9-260-4f39.ngrok-free.app/api/processMyTip/processMyTip",
                     "timeoutSeconds": 20
                 }
             },
@@ -162,7 +162,7 @@ payload = {
                     }
                 },
                 "server": {
-                    "url": "https://1def-2603-9000-f801-977f-5d1-8a36-7a44-bf22.ngrok-free.app/api/processMyOrder/processMyOrder",
+                    "url": "https://d1b1-2603-9000-db00-9f7f-3d2c-43d9-260-4f39.ngrok-free.app/api/processMyOrder/processMyOrder",
                     "timeoutSeconds": 20
                 }
             }

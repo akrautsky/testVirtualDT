@@ -5,7 +5,7 @@ from app import create_app
 from app.events.current_order_event import socketIO
 
 # Specify the port on which your Flask app is running
-port = 5001
+port = 5000
 
 # Start an ngrok tunnel
 public_url = ngrok.connect(port)
