@@ -6,7 +6,21 @@ db = SQLAlchemy()
 
 def init_db(app):
     # Configuration setup
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Akashr%4007@localhost:3306/VDOrderDB'
+
+    # Azure SQL Database connection string
+    app.config['SQLALCHEMY_DATABASE_URI'] = (
+        "mssql+pyodbc://admin07:Akashr%4007@vdsqldbserver.database.windows.net:1433/VDTDB"
+        "?driver=ODBC+Driver+18+for+SQL+Server"
+        "&Encrypt=yes"
+        "&TrustServerCertificate=no"
+        "&Connection Timeout=30"
+    )
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    db.init_app(app)
     
+    # Initialize the database with the app
+    try:
+        db.init_app(app)
+        print("Database connection initialized successfully.")
+    except Exception as e:
+        print(f"Failed to initialize the database connection: {e}")
+

@@ -1,0 +1,14 @@
+Flask
+pyngrok
+flask_cors
+firebase_admin
+SQLAlchemy
+Flask-SQLAlchemy
+pymysql
+certifi
+colorama
+psycopg2-binary
+pyodbc
+setuptools
+flask_socketio
+vapi_python

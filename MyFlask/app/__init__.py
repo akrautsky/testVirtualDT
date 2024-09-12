@@ -11,7 +11,7 @@ def create_app():
 
 
     # specifying the allowed origins
-    cors = CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000"]}})
+    cors = CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3001"]}})
     
     # initializing the socketIO with app
     socketIO.init_app(app)
