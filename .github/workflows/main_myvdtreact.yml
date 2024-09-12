@@ -97,18 +97,11 @@ jobs:
       - name: List files after download
         run: ls -la
 
-      - name: Create directory for artifact
-        run: mkdir -p React/frontend/build
-
-      - name: Move downloaded artifact to the correct directory
-        run: mv frontend-artifact.zip React/frontend/build/release.zip || mv *.zip React/frontend/build/release.zip
-
-      - name: Verify ZIP File Before Unzipping
-        run: ls -la React/frontend/build
-
       - name: Unzip artifact for deployment
-        run: unzip release.zip
-        working-directory: React/frontend/build
+        run: unzip frontend-artifact.zip -d ./unzipped
+
+      - name: List files in unzipped directory
+        run: ls -la ./unzipped
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -123,7 +116,8 @@ jobs:
         with:
           app-name: 'myvdtreact'
           slot-name: 'Production'
-          package: React/frontend/build
+          package: ./unzipped
+          clean: true # Ensures the directory is cleaned before deployment
 
   build-backend:
     runs-on: ubuntu-latest
