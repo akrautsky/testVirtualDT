@@ -5,7 +5,7 @@ on:
     branches:
       - main
     types: 
-      - closed  # Ensures the workflow triggers only when a pull request is merged
+      - closed # Ensures the workflow triggers only when a pull request is merged
   workflow_dispatch:
 
 jobs:
@@ -67,16 +67,10 @@ jobs:
           npm run build --if-present
         working-directory: React/frontend
 
-      - name: Verify ZIP File Before Uploading
-        run: ls -la React/frontend/build
-
       - name: Zip artifact for deployment
         run: |
           zip -r release.zip ./*
         working-directory: React/frontend/build
-
-      - name: Verify ZIP File After Zipping
-        run: ls -la React/frontend/build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -98,17 +92,10 @@ jobs:
       - name: Download frontend artifact
         uses: actions/download-artifact@v4
         with:
-          name: frontend-artifact
-          path: ./artifact-dir  # Specify a directory for download
-
-      - name: List files in the downloaded directory
-        run: ls -la ./artifact-dir
+          name: frontend-artifact  # Download the exact artifact uploaded
 
       - name: Unzip artifact for deployment
-        run: unzip ./artifact-dir/frontend-artifact.zip -d ./unzipped
-
-      - name: List files in unzipped directory
-        run: ls -la ./unzipped
+        run: unzip frontend-artifact.zip -d ./unzipped
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -124,7 +111,7 @@ jobs:
           app-name: 'myvdtreact'
           slot-name: 'Production'
           package: ./unzipped
-          clean: true  # Ensures the directory is cleaned before deployment
+          clean: true
 
   build-backend:
     runs-on: ubuntu-latest
