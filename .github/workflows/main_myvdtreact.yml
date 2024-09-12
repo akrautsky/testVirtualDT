@@ -97,11 +97,19 @@ jobs:
       - name: List files after download
         run: ls -la
 
+      - name: Debug: Inspect the contents of release.zip before unzipping
+        run: |
+          echo "Listing contents of release.zip"
+          unzip -l frontend-artifact.zip
+
       - name: Unzip artifact for deployment
         run: unzip frontend-artifact.zip -d ./unzipped
 
       - name: List files in unzipped directory
         run: ls -la ./unzipped
+
+      - name: Debug: List files inside unzipped static folder
+        run: ls -la ./unzipped/static/
 
       - name: Login to Azure
         uses: azure/login@v2
