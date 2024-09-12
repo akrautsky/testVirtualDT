@@ -8,6 +8,10 @@ on:
       - closed
   workflow_dispatch:
 
+permissions:
+  id-token: write  # Add this to allow OIDC-based authentication
+  contents: read   # Add read permissions for contents
+
 jobs:
   build-frontend:
     runs-on: ubuntu-latest
@@ -44,13 +48,14 @@ jobs:
           ls -la React/frontend/build/static/media
         continue-on-error: true
 
-      # Deploy directly to Azure without zipping
+      # Add correct Azure login step with OIDC-based authentication
       - name: Login to Azure
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
+          enable-AzPSSession: false
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
