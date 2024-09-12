@@ -20,7 +20,7 @@ function CurrentOrder() {
 
   useEffect(() =>{
 
-    const socketIo = io('http://localhost:5001', 
+    const socketIo = io('http://localhost:5000', 
       {
         transports: ['websocket'],  // Specify WebSocket as the transport
       }
