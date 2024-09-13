@@ -91,4 +91,4 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'myWebAppReact'  # Replace with your Azure Web App name
-          package: ./build  # Path to the unzipped build directory
+          package: build  # Path to the unzipped build directory
