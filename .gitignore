@@ -1,6 +1,7 @@
 # Node.js
 React/node_modules/
 React/build/
+React/frontend/build/
 React/.env
 React/backend
 
