@@ -85,6 +85,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'GithubActionsAppReact'  # Replace with your Azure Web App name
+          app-name: 'myWebAppReact'  # Replace with your Azure Web App name
           slot-name: 'production'
           package: ./build  # Ensure the build folder path is correct
+     
