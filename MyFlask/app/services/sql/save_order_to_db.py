@@ -16,7 +16,7 @@ def save_order_to_db():
         new_order = Order(
             order_total=global_order.get("total", 0),
             order_date=datetime.now(),  
-            total_items=3,  
+            total_items=global_order.get("totalItems", 0),  
             tip_amount=global_order.get("tip_amount", 0.0),
             roundedDollar=global_order.get("roundedDollar", 0.0)
         )
